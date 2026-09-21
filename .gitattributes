@@ -1,0 +1,18 @@
+# Normalise line endings. The sources are edited on Windows and built with
+# MSVC, but a clone on any platform should get consistent text.
+* text=auto
+
+# Windows-only build inputs. rc.exe and cmd are happiest with CRLF, and a .bat
+# with LF endings can misbehave on some shells.
+*.bat  text eol=crlf
+*.rc   text eol=crlf
+*.ps1  text eol=crlf
+*.manifest text eol=crlf
+
+# Binary, never diffed or converted.
+*.png  binary
+*.ico  binary
+*.jpg  binary
+*.dll  binary
+*.exe  binary
+*.iso  binary

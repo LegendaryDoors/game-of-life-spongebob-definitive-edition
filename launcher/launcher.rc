@@ -1,0 +1,62 @@
+#include <windows.h>
+#include "resource.h"
+
+1 24 "launcher.manifest"
+
+IDI_APPICON ICON "app.ico"
+
+/* Relative to the project root; rc runs there. Build the DLL first. */
+IDR_PATCH_DLL    RCDATA "build\\d3d9.dll"
+IDR_INI_TEMPLATE RCDATA "GameOfLifeDefinitiveEdition.ini"
+
+IDD_MAIN DIALOGEX 0, 0, 400, 250
+STYLE DS_CENTER | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU | WS_CLIPCHILDREN
+CLASS "GameOfLifeDefinitiveEditionSetup"
+CAPTION "Game of Life SpongeBob: Definitive Edition - Setup"
+FONT 8, "Tahoma"
+BEGIN
+    LTEXT           "Where is your game?", IDC_HDR_FOLDER, 26, 74, 348, 18, SS_OWNERDRAW
+    LTEXT           "Pick the folder holding SBLife.exe. A folder above it works too.",
+                    IDC_SUBHEAD, 26, 94, 348, 12, SS_OWNERDRAW
+
+    EDITTEXT        IDC_GAMEDIR, 26, 114, 250, 16, ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse", IDC_BROWSE, 290, 114, 84, 16, BS_OWNERDRAW
+
+    LTEXT           "", IDC_STATUS_EXE, 26, 140, 348, 13, SS_OWNERDRAW
+    LTEXT           "", IDC_STATUS_PATCH, 26, 155, 348, 13, SS_OWNERDRAW
+
+    PUSHBUTTON      "Where do I get the game?", IDC_HELPBTN, 26, 178, 130, 16, BS_OWNERDRAW
+
+    PUSHBUTTON      "About", IDC_ABOUT, 26, 204, 62, 16, BS_OWNERDRAW
+    PUSHBUTTON      "Uninstall", IDC_UNINSTALL, 94, 204, 62, 16, BS_OWNERDRAW
+    PUSHBUTTON      "Install patch", IDC_INSTALL, 262, 204, 112, 16, BS_OWNERDRAW
+
+    LTEXT           "", IDC_MSG, 26, 230, 250, 11, SS_OWNERDRAW
+END
+
+IDD_LAUNCH DIALOGEX 0, 0, 400, 272
+STYLE DS_CENTER | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU | WS_CLIPCHILDREN
+CLASS "GameOfLifeDefinitiveEditionSetup"
+CAPTION "Game of Life SpongeBob: Definitive Edition"
+FONT 8, "Tahoma"
+BEGIN
+
+    PUSHBUTTON      "", IDC_ROW_MODE,   26,  72, 348, 18, BS_OWNERDRAW
+    PUSHBUTTON      "", IDC_ROW_RES,    26,  92, 348, 18, BS_OWNERDRAW
+
+    LTEXT           "Size", IDC_LBL_WIDTH, 40, 115, 40, 12, SS_OWNERDRAW
+    EDITTEXT        IDC_WIDTH, 247, 116, 50, 10, ES_NUMBER | ES_CENTER
+    LTEXT           "x", IDC_LBL_HEIGHT, 304, 115, 8, 12, SS_OWNERDRAW
+    EDITTEXT        IDC_HEIGHT, 317, 116, 50, 10, ES_NUMBER | ES_CENTER
+
+    PUSHBUTTON      "", IDC_ROW_SHAPE,  26, 132, 348, 18, BS_OWNERDRAW
+    PUSHBUTTON      "", IDC_ROW_CAP,    26, 152, 348, 18, BS_OWNERDRAW
+    PUSHBUTTON      "", IDC_ROW_BG,     26, 172, 348, 18, BS_OWNERDRAW
+    PUSHBUTTON      "", IDC_ROW_PATCH,  26, 192, 348, 18, BS_OWNERDRAW
+
+    PUSHBUTTON      "Setup", IDC_SETUPBTN, 26, 228, 62, 16, BS_OWNERDRAW
+    PUSHBUTTON      "About", IDC_ABOUT, 94, 228, 62, 16, BS_OWNERDRAW
+    PUSHBUTTON      "PLAY", IDC_PLAY, 286, 228, 88, 16, BS_OWNERDRAW
+
+    LTEXT           "", IDC_MSG, 26, 254, 250, 11, SS_OWNERDRAW
+END

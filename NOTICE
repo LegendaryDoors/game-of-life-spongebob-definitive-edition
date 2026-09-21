@@ -1,0 +1,21 @@
+This project is a fan-made compatibility and preservation patch. It contains no
+game code, artwork or data files from The Game of Life: SpongeBob SquarePants
+Edition. You supply your own copy of the game.
+
+"The Game of Life: SpongeBob SquarePants Edition" (2007) and its assets are the
+property of their respective rights holders - THQ, Nickelodeon (Viacom) and
+Hasbro. "The Game of Life" is a Hasbro trademark. "SpongeBob SquarePants" is a
+Nickelodeon trademark. This project is not affiliated with, authorised by or
+endorsed by any of them.
+
+The launcher displays the game's title artwork by reading it at runtime from the
+copy already installed on the user's own machine
+(game/textures/tex_menu_titlebg.jpg). That file is never copied, bundled,
+embedded or redistributed by this project.
+
+The game is built on Virtools 4.0 (CK2) by Dassault Systemes. The patch
+interoperates with it through the public Direct3D 9 API only; no Virtools code
+is included or modified.
+
+The MIT license in LICENSE covers only the patch, the launcher and the build
+tooling in this repository.

@@ -1,0 +1,28 @@
+# The game itself - bring your own copy (see NOTICE).
+/GameOfLife_SB/
+*.iso
+
+# Build output.
+/build/
+/dist/
+
+# Compiler leftovers.
+*.obj
+*.res
+*.exp
+*.lib
+*.pdb
+*.ilk
+
+# Written next to the game at runtime.
+GameOfLifeDefinitiveEdition.log
+VxMath.log
+GLCache/
+
+# Editor, OS and local tool state.
+*.swp
+.DS_Store
+Thumbs.db
+.vscode/
+.vs/
+.claude/
