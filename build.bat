@@ -1,11 +1,10 @@
 @echo off
 rem Everything is 32-bit, because SBLife.exe is.
 setlocal
-set "VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
-set "VS="
-if exist "%VSWHERE%" for /f "usebackq delims=" %%i in (`"%VSWHERE%" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VS=%%i\VC\Auxiliary\Build\vcvars32.bat"
-if not exist "%VS%" set "VS=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars32.bat"
+call :findvs
 if not exist "%VS%" ( echo Could not find vcvars32.bat - install the VS C++ 32-bit toolset & exit /b 1 )
+rem Some installs print "'vswhere.exe' is not recognized" on the next line. That
+rem comes from inside Microsoft's vcvars32.bat, not from here, and is harmless.
 call "%VS%" >nul || ( echo VCVARS FAILED & exit /b 1 )
 
 cd /d "%~dp0"
@@ -31,3 +30,21 @@ if errorlevel 1 ( echo BUILD FAILED ^(launcher^) & exit /b 1 )
 
 echo BUILD OK -^> build\d3d9.dll
 echo BUILD OK -^> build\GameOfLifeDefinitiveEdition.exe
+exit /b 0
+
+rem --- finding the toolset -------------------------------------------------
+rem vswhere ships with every VS 2017+ installer and is the only reliable way to
+rem locate an install: it covers Community, Professional, Enterprise and the
+rem standalone Build Tools, at whatever path the user chose.
+:findvs
+set "VS="
+set "VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+rem 32-bit Windows has no ProgramFiles(x86), so fall back to the plain root.
+if not exist "%VSWHERE%" set "VSWHERE=%ProgramFiles%\Microsoft Visual Studio\Installer\vswhere.exe"
+if exist "%VSWHERE%" for /f "usebackq delims=" %%i in (`"%VSWHERE%" -latest -prerelease -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VS=%%i\VC\Auxiliary\Build\vcvars32.bat"
+if exist "%VS%" goto :eof
+
+rem No vswhere, or it found nothing. Walk the default layouts instead. Oldest
+rem first and edition-preference last, so the newest match is what survives.
+for %%r in ("%ProgramFiles%" "%ProgramFiles(x86)%") do for %%y in (2017 2019 2022) do for %%e in (BuildTools Enterprise Professional Community) do if exist "%%~r\Microsoft Visual Studio\%%y\%%e\VC\Auxiliary\Build\vcvars32.bat" set "VS=%%~r\Microsoft Visual Studio\%%y\%%e\VC\Auxiliary\Build\vcvars32.bat"
+goto :eof
